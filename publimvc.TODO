@@ -1,0 +1,29 @@
+Model_Data_Cache :
+ ☐ Plutot les fixer en dure en tant qu'attribut de la classe qui en hérite
+ Exemple 
+ class Model_User extends Model
+{
+  protected $table = "user";
+  protected $timestampable = true;
+  protected $primary = array('id');
+}
+
+class Model_Data_Base extends Model_Abstract{
+  protected $table = "";
+  protected $timestampable = false; // si ce flag est à true, il faut des champs created_at et updated_at
+  protected $primary = array('id');
+  protected $_wrapper;
+ ...
+
+ ☐ Etant donné qu'il n'y aucun sens d'instancier Model_Data_Cache / Model_Data_Base, elles doivent être abstract. Cela permet de controller par php qu'elle sera jamais instancier.
+
+
+Cache_dir : 
+ ☐ setEntity doit vérifier que c'est bien une instance de cache_entity sinon forcer un exeption de php
+ ☐ $this->entities["nameOfEntity"] et non plus un tableau numerique (ça force à ne pas avoir de doublon et facilite le getEntity)
+ ☐ getEntity($nameOfEntity) doit renvoyer une seul entity et pas la collection complete
+ ☐ getEntities() renvoie la collection complete
+ ☐ setXXX laisse penser qu'on va écraser ce qu'il y avait avant
+ ☐ addXXX laisse penser qu'on va completer ce qu'il y avait avant
+
+

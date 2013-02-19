@@ -1,0 +1,36 @@
+/* !XDEBUG beautifying */
+
+.xdebug-error {
+	font-size: 12px;
+	width: 95%;
+	margin: 0 auto 10px auto;
+	border-color: #666;
+	background: #ddd;
+}
+
+.xdebug-error th, .xdebug-error td {
+	padding: 2px;
+}
+
+.xdebug-error th {
+	background: #ccc;
+}
+
+.xdebug-error td {
+	/* background: #fee; */
+}
+
+.xdebug-error span {
+	display: none;
+}
+
+.xdebug-error_description th {
+	font-size: 1.2em;
+	padding: 20px 4px 20px 100px;
+	/*background: url(../images/xdebug-logo.gif) #ccc no-repeat left top;*/
+}
+
+.xdebug-error_callStack th {
+	background: #666;
+	color: #ddd;
+}
