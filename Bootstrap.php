@@ -7,10 +7,33 @@
 class Bootstrap extends Mo_Bootstrap
 {
 	public function initCacheDir(){
-        // On récupère l'id du document
-        
-        $document_id = 7;
-        $path = __DIR__."/Cache/".$document_id."/";
+        $params = Application::getInstance()->getParams();
+        $path = __DIR__."/Cache/".$params["document_id"]."/";
         Registry::getInstance()->set("Cache_Manager",new Cache_Dir($path,new Cache_Encode_Json()));
+    }
+
+    public function initTranslate(){
+        Registry::getInstance()->set("translate",include("config/translate.php"));
+        Registry::getInstance()->set("locale","fr");
+    }
+
+    public function CustomRoute(){
+       $route = new Route( '/document_id/:class/:method' );
+
+       $route->addDynamicElement( 'document_id', 'document_id' )
+             ->addDynamicElement( ':class', ':class' )
+             ->addDynamicElement( ':method', ':method' );
+
+       Application::getInstance()->getRouter()->addRoute( 'document-index', $route );
+
+       // -------------------------------------------------- //
+
+       // $route = new Route( '/document_id/:class/:method' );
+       // $route->addDynamicElement( 'document_id', 'document_id' )
+       //       ->addDynamicElement( ':class', ':class' )
+       //       ->addDynamicElement( ':method', ':method' );
+
+       // Application::getInstance()->getRouter()->addRoute( 'document-index', $route );
+
     }
 }

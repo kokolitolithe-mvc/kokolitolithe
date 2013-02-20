@@ -2,7 +2,6 @@
 
 class Mo_Bootstrap{
 	protected static $_bootstrap = null;
-
 	static public function getInstance(){
 		if(self::$_bootstrap == null){
 			// $class = __CLASS__;

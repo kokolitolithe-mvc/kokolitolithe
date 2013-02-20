@@ -51,6 +51,11 @@ class Router
         return $this;
     }
 
+    public function removeRoute($name){
+        unset($this->routes[$name]);
+        return $this;
+    }
+
     /**
      * Adds an array of named routes to the list of possible routes
      * 

@@ -1,4 +1,5 @@
 <?php
+
 define("PATH_PUBLIC", dirname(__FILE__));
 define("BASEPATH", realpath(dirname(__FILE__)."/../"));
 set_include_path(implode(PATH_SEPARATOR, array(

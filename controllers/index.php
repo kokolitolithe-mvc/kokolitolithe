@@ -11,18 +11,12 @@ class index extends Controller{
         // var_dump($test->findBy(array("content" => "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.")));
         // var_dump($test->findBy(array("content" => "New Page 4")));
     	// var_dump($test->findBy(array("content" => "fzfrge")));
-        // $array = $test->fetchAll();   
-        // $array = array();
-        // $array[] = array('id' => 5, 'content' => 'New Page 5');
-        // $test->save($array);
-        // Debug::dump($test->fetchAll());
+        $array = $test->fetchAll();   
+        $array = array();
+        $array[] = array('id' => 5, 'content' => 'New Page 5');
+        $test->save($array);
+        Debug::dump($test->fetchAll());
 
-        $cli = Model_Api::getInstance();
-        $cli->auth("webapp", "c0ca616865e03e3545143a0b991df4f11d978f84");
-        
-        $json = $cli->get("api.publispeak.com/document/2/page/18.json");
-        Debug::dump($json);
-        echo $json->body;
         $this->loadView("index/index");
     }
 

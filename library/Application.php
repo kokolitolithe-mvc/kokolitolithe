@@ -14,6 +14,7 @@ require_once 'Router/php-router.php';
 class Application{
 	protected $_router = null;
 	protected $_dispatcher = null;
+	protected $_params = null;
 
 	protected static $_instance = null;
 
@@ -39,9 +40,8 @@ class Application{
 		return $this->_dispatcher;
 	}
 	public function run(){
-		$this->callbootstrap();
 		$this->callRoute();
-
+		
 		try {
 		  $found_route = $this->getRouter()->findRoute( urldecode($_SERVER['REQUEST_URI']) );
 		  $method = $found_route->getMapMethod();
@@ -51,7 +51,9 @@ class Application{
 			$method = "ajax_".$method;	
 		}		  
 		  $found_route->setMapMethod($method);
-
+		  
+		  $this->_params = $found_route->getMapArguments();
+		  $this->callbootstrap();
 		  $this->getDispatcher()->dispatch( $found_route );
 
 		} catch ( RouteNotFoundException $exception ) {
@@ -99,14 +101,26 @@ class Application{
 		//recuperer les routes Customs
 	}
 
+	public function getParams(){
+		return $this->_params;
+	}
+
 	protected function setDefaultRoute()
 	{
 		$controllerPath = dirname(__FILE__)."/../controllers/";
 		$this->_dispatcher->setClassPath($controllerPath);
 		
+		$boostrap = Bootstrap::getInstance();
+		if(method_exists($boostrap, "CustomRoute")){
+			$boostrap->CustomRoute();
+		}
+
 		//Set up your default route:
 		$default_route = new Route('/');
-		$default_route->setMapClass('index')->setMapMethod('index');
+		$default_route->setMapClass('index')
+					  ->setMapMethod('index');
+
+
 		$this->_router->addRoute( 'default', $default_route );
 		
 		//Set up your default route:
@@ -117,6 +131,7 @@ class Application{
 		$route = new Route( '/:class/:method' );
 		$route->addDynamicElement( ':class', ':class' )->addDynamicElement( ':method', ':method' );
 		$this->_router->addRoute( 'controller-class', $route );
+
 
 	}
 }
